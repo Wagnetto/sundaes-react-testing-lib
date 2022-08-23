@@ -16,7 +16,7 @@ export default function SummaryForm() {
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"
-          //name="terms-checkbox"
+          id="terms-and-conditions"
           checked={tcChecked}
           onChange={(e) => setTcChecked(e.target.checked)}
           label={checkboxLabel}
