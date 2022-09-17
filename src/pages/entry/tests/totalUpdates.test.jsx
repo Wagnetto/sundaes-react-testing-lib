@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { userEvent } from "@testing-library/user-event";
+import { render, screen } from "../../../test-utils/testing-library-utils";
+import userEvent from "@testing-library/user-event";
 import Options from "../Options";
 
 test("update scoop subtotal when scoops change", async () => {
@@ -13,15 +13,16 @@ test("update scoop subtotal when scoops change", async () => {
   const vanillaInput = await screen.findByRole("spinbutton", {
     name: "Vanilla",
   });
-  userEvent.clear(vanillaInput);
-  userEvent.type(vanillaInput, "1");
+
+  await userEvent.clear(vanillaInput);
+  await userEvent.type(vanillaInput, "1");
   expect(scoopSubtotal).toHaveTextContent("2.00");
 
   //update chocolate scoops to 2 and check the subtotal
   const chocolateInput = await screen.findByRole("spinbutton", {
     name: "Chocolate",
   });
-  userEvent.clear(chocolateInput);
-  userEvent.type(chocolateInput, "2");
+  await userEvent.clear(chocolateInput);
+  await userEvent.type(chocolateInput, "2");
   expect(scoopSubtotal).toHaveTextContent("6.00");
 });
