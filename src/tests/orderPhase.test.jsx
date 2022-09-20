@@ -1,11 +1,11 @@
-import { findByRole, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import App from "../App";
 
 test("order phases for happy path", async () => {
   // render App
-  render(<App />);
+  render(<App setOrderPhase={jest.fn()} />);
 
   //add icecream scoops and toppings
   const vanillaInput = await screen.findByRole("spinbutton", {
@@ -24,13 +24,15 @@ test("order phases for happy path", async () => {
   await userEvent.click(cherriesCheckbox);
 
   //find and click order button on OrderEntry page
-  const orderSummaryButton = screen.getByRole("button", {
+  const orderSummaryButton = await screen.findByRole("button", {
     name: /order sundae/i,
   });
   userEvent.click(orderSummaryButton);
 
   //check summary information based on order
-  const summaryHeading = screen.getByRole("heading", { name: "OrderSummary" });
+  const summaryHeading = await screen.findByRole("heading", {
+    name: /order summary/i,
+  });
   expect(summaryHeading).toBeInTheDocument();
 
   const scoopsHeading = screen.getByRole("heading", { name: "Scoops: $6.00" });
