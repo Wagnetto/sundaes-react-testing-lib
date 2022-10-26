@@ -11,7 +11,7 @@ import { formatCurrency } from "../../utilities";
 export default function Options({ optionType }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
-  const [orderDetails, updateItemCount] = useOrderDetails();
+  const { totals } = useOrderDetails();
   //optionType is 'scoops' or 'toppings'
   useEffect(() => {
     axios
@@ -32,9 +32,6 @@ export default function Options({ optionType }) {
       key={item.name}
       name={item.name}
       imagePath={item.imagePath}
-      updateItemCount={(itemName, newItemCount) =>
-        updateItemCount(itemName, newItemCount, optionType)
-      }
     />
   ));
   return (
@@ -42,7 +39,7 @@ export default function Options({ optionType }) {
       <h2>{title}</h2>
       <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>
-        {title} total: {orderDetails.totals[optionType]}
+        {title} total: {formatCurrency(totals[optionType])}
       </p>
       <Row>{optionItems}</Row>;
     </>

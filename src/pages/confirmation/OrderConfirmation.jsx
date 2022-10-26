@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 
 export default function OrderConfirmation({ setOrderPhase }) {
-  const [, , resetOrder] = useOrderDetails();
+  const { resetOrder } = useOrderDetails();
   const [orderNumber, setOrderNumber] = useState(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function OrderConfirmation({ setOrderPhase }) {
         <p style={{ fontSize: "25%" }}>
           as per our terms and conditions, nothing will happen now
         </p>
-        <Button onCLick={handleClick}>Create new order</Button>
+        <Button onClick={handleClick}>Create new order</Button>
       </div>
     );
   } else {
